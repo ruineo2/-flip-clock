@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Flip Clock</title>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@pqina/flip/dist/flip.min.css">
+<script src="https://cdn.jsdelivr.net/npm/@pqina/flip/dist/flip.min.js"></script>
+
+<style>
+html, body {
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    overflow: hidden;
+}
+
+#clock {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+</style>
+</head>
+
+<body>
+
+<div id="clock"></div>
+
+<script>
+const clock = Tick.DOM.create(document.querySelector('#clock'), {
+    value: Tick.helper.date(),
+    didInit: function(tick) {
+
+        Tick.helper.interval(function() {
+            tick.value = Tick.helper.date();
+        });
+
+    }
+});
+</script>
+
+</body>
+</html>
