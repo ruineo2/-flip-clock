@@ -20,20 +20,18 @@ html, body {
 .clock {
 
     position:absolute;
-
     top:50%;
     left:50%;
-
-    transform:translate(-50%, -50%);
+    transform:translate(-50%,-50%);
 
     display:flex;
-    justify-content:center;
     align-items:center;
+    justify-content:center;
 
 }
 
 
-/* taille de l'horloge */
+/* taille des chiffres */
 .tick {
 
     font-size:70px;
@@ -42,7 +40,7 @@ html, body {
 }
 
 
-/* couleurs */
+/* plaques chiffres */
 .tick-flip {
 
     --background:#111111;
@@ -51,7 +49,7 @@ html, body {
 }
 
 
-/* plaques noires */
+/* enlever les effets jaunes */
 .tick-flip-panel {
 
     background:#111111 !important;
@@ -59,10 +57,21 @@ html, body {
 }
 
 
-/* ombres */
 .tick-flip-shadow {
 
-    opacity:.45;
+    opacity:0.45;
+
+}
+
+
+/* séparateurs : sans plaque */
+.separator {
+
+    color:#ffffff;
+    font-size:70px;
+    font-weight:bold;
+    margin:0 15px;
+    line-height:1;
 
 }
 
@@ -76,14 +85,27 @@ html, body {
 
 <div class="clock">
 
-    <div class="tick"
-         data-did-init="setupFlip">
 
-        <div data-repeat="true">
-            <span data-view="flip"></span>
-        </div>
-
+    <div class="tick" id="hours">
+        <span data-view="flip"></span>
     </div>
+
+
+    <div class="separator">:</div>
+
+
+    <div class="tick" id="minutes">
+        <span data-view="flip"></span>
+    </div>
+
+
+    <div class="separator">:</div>
+
+
+    <div class="tick" id="seconds">
+        <span data-view="flip"></span>
+    </div>
+
 
 </div>
 
@@ -92,38 +114,52 @@ html, body {
 <script src="https://unpkg.com/@pqina/flip/dist/flip.min.js"></script>
 
 
-
 <script>
 
-function setupFlip(tick) {
+
+function startClock(id){
+
+ return Tick.DOM.create(
+        document.getElementById(id),
+        {
+            value:"00"
+        }
+    );
+
+}
 
 
-    function updateTime() {
+const hours = startClock("hours");
+const minutes = startClock("minutes");
+const seconds = startClock("seconds");
 
-        const now = new Date();
 
 
-        const time =
+function updateClock(){
 
-        String(now.getHours()).padStart(2,"0")
-        + ":" +
-        String(now.getMinutes()).padStart(2,"0")
-        + ":" +
+
+    let now = new Date();
+
+
+    hours.value =
+        String(now.getHours()).padStart(2,"0");
+
+
+    minutes.value =
+        String(now.getMinutes()).padStart(2,"0");
+
+
+    seconds.value =
         String(now.getSeconds()).padStart(2,"0");
 
 
-        tick.value = time;
-
-    }
-
-
-    updateTime();
-
-
-    Tick.helper.interval(updateTime,1000);
-
-
 }
+
+
+updateClock();
+
+setInterval(updateClock,1000);
+
 
 </script>
 
