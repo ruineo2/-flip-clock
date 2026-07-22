@@ -6,75 +6,124 @@
 <link rel="stylesheet" href="https://unpkg.com/@pqina/flip/dist/flip.min.css">
 
 <style>
-html,body{
+
+html, body {
     margin:0;
     padding:0;
     background:transparent;
     overflow:hidden;
 }
 
-.clock{
+
+.clock {
     display:flex;
     justify-content:center;
     align-items:center;
     height:100vh;
 }
 
-.tick{
+
+/* taille générale */
+.tick {
     font-size:70px;
-    font-family:Arial, sans-serif;
+    font-family:Arial, Helvetica, sans-serif;
 }
 
-.tick-flip{
-    --background: #111;
-    --text-color: #fff;
-    --shadow: 0 4px 15px rgba(0,0,0,.7);
+
+/* plaques */
+.tick-flip {
+
+    --background: #111111;
+    --text-color: #ffffff;
+
+}
+
+
+/* ombre légère */
+.tick-flip-panel {
+
+    background:#111111 !important;
+
+}
+
+
+.tick-flip-shadow {
+
+    opacity:.5;
+
 }
 
 </style>
 
 </head>
 
+
 <body>
+
 
 <div class="clock">
 
 <div class="tick"
      data-did-init="setupFlip">
 
+
     <div data-repeat="true">
+
         <span data-view="flip"></span>
+
     </div>
 
-</div>
 
 </div>
+
+
+</div>
+
 
 
 <script src="https://unpkg.com/@pqina/flip/dist/flip.min.js"></script>
 
+
+
 <script>
 
-function setupFlip(tick){
 
-    Tick.helper.interval(function(){
+function setupFlip(tick) {
+
+
+    function updateTime(){
+
 
         let d = new Date();
 
+
         let time =
-        String(d.getHours()).padStart(2,"0") +
-        ":" +
-        String(d.getMinutes()).padStart(2,"0") +
-        ":" +
+
+        String(d.getHours()).padStart(2,"0")
+        + ":" +
+        String(d.getMinutes()).padStart(2,"0")
+        + ":" +
         String(d.getSeconds()).padStart(2,"0");
+
 
         tick.value = time;
 
-    },1000);
+
+    }
+
+
+    updateTime();
+
+
+    Tick.helper.interval(updateTime,1000);
+
 
 }
 
+
+
 </script>
+
 
 </body>
 </html>
