@@ -4,93 +4,121 @@
 <meta charset="UTF-8">
 
 <style>
-html,body{
+html, body {
     margin:0;
     padding:0;
     background:transparent;
     overflow:hidden;
 }
 
-.clock{
+.clock {
     display:flex;
     justify-content:center;
     align-items:center;
     height:100vh;
-    font-family:Arial, Helvetica, sans-serif;
 }
 
-.digit{
+.digit {
     position:relative;
     width:75px;
     height:100px;
     margin:5px;
+
     background:#111;
     color:#ffffff;
+
+    font-family:Arial, Helvetica, sans-serif;
     font-size:75px;
     font-weight:bold;
+
     line-height:100px;
     text-align:center;
-    border-radius:5px;
-    box-shadow:0 3px 10px #000;
+
+    border-radius:6px;
+
+    box-shadow:
+        0 3px 12px rgba(0,0,0,0.8),
+        inset 0 0 15px rgba(255,255,255,0.08);
 }
 
-.digit:after{
+
+/* séparation du volet */
+.digit:after {
     content:"";
     position:absolute;
+
     left:0;
     right:0;
     top:50%;
+
     height:2px;
+
     background:#000;
 }
 
-.colon{
-    color:#ffd400;
+
+.colon {
+    color:#ffffff;
+    font-family:Arial, Helvetica, sans-serif;
     font-size:70px;
     font-weight:bold;
+
+    margin:0 5px;
 }
 
 </style>
+
 </head>
 
 <body>
 
 <div class="clock">
+
     <div class="digit" id="h1"></div>
     <div class="digit" id="h2"></div>
+
     <div class="colon">:</div>
+
     <div class="digit" id="m1"></div>
     <div class="digit" id="m2"></div>
+
     <div class="colon">:</div>
+
     <div class="digit" id="s1"></div>
     <div class="digit" id="s2"></div>
+
 </div>
 
 
 <script>
 
-function update(){
+function updateClock(){
 
-let t=new Date();
+    const now = new Date();
 
-let h=String(t.getHours()).padStart(2,"0");
-let m=String(t.getMinutes()).padStart(2,"0");
-let s=String(t.getSeconds()).padStart(2,"0");
+    const h = String(now.getHours()).padStart(2,"0");
+    const m = String(now.getMinutes()).padStart(2,"0");
+    const s = String(now.getSeconds()).padStart(2,"0");
 
-h1.textContent=h[0];
-h2.textContent=h[1];
 
-m1.textContent=m[0];
-m2.textContent=m[1];
+    document.getElementById("h1").textContent = h[0];
+    document.getElementById("h2").textContent = h[1];
 
-s1.textContent=s[0];
-s2.textContent=s[1];
+    document.getElementById("m1").textContent = m[0];
+    document.getElementById("m2").textContent = m[1];
+
+    document.getElementById("s1").textContent = s[0];
+    document.getElementById("s2").textContent = s[1];
 
 }
 
-update();
-setInterval(update,1000);
+
+updateClock();
+
+setInterval(updateClock,1000);
 
 </script>
 
+
 </body>
+</html>
