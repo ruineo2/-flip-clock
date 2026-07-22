@@ -10,36 +10,48 @@
 html, body {
     margin:0;
     padding:0;
+    width:100%;
+    height:100%;
     background:transparent;
     overflow:hidden;
 }
 
 
 .clock {
+
+    position:absolute;
+
+    top:50%;
+    left:50%;
+
+    transform:translate(-50%, -50%);
+
     display:flex;
     justify-content:center;
     align-items:center;
-    height:100vh;
+
 }
 
 
-/* taille générale */
+/* taille de l'horloge */
 .tick {
+
     font-size:70px;
     font-family:Arial, Helvetica, sans-serif;
+
 }
 
 
-/* plaques */
+/* couleurs */
 .tick-flip {
 
-    --background: #111111;
-    --text-color: #ffffff;
+    --background:#111111;
+    --text-color:#ffffff;
 
 }
 
 
-/* ombre légère */
+/* plaques noires */
 .tick-flip-panel {
 
     background:#111111 !important;
@@ -47,9 +59,10 @@ html, body {
 }
 
 
+/* ombres */
 .tick-flip-shadow {
 
-    opacity:.5;
+    opacity:.45;
 
 }
 
@@ -63,19 +76,14 @@ html, body {
 
 <div class="clock">
 
-<div class="tick"
-     data-did-init="setupFlip">
+    <div class="tick"
+         data-did-init="setupFlip">
 
-
-    <div data-repeat="true">
-
-        <span data-view="flip"></span>
+        <div data-repeat="true">
+            <span data-view="flip"></span>
+        </div>
 
     </div>
-
-
-</div>
-
 
 </div>
 
@@ -87,27 +95,24 @@ html, body {
 
 <script>
 
-
 function setupFlip(tick) {
 
 
-    function updateTime(){
+    function updateTime() {
+
+        const now = new Date();
 
 
-        let d = new Date();
+        const time =
 
-
-        let time =
-
-        String(d.getHours()).padStart(2,"0")
+        String(now.getHours()).padStart(2,"0")
         + ":" +
-        String(d.getMinutes()).padStart(2,"0")
+        String(now.getMinutes()).padStart(2,"0")
         + ":" +
-        String(d.getSeconds()).padStart(2,"0");
+        String(now.getSeconds()).padStart(2,"0");
 
 
         tick.value = time;
-
 
     }
 
@@ -119,8 +124,6 @@ function setupFlip(tick) {
 
 
 }
-
-
 
 </script>
 
